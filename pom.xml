@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- AVAIL Desktop automation - same architecture and standards as the AVAIL Stream framework
+	     (D:\AvailAutomation\Playwright2\AvailStream). See AVAIL_Stream_to_AVAIL_Desktop_Framework_Mapping.md -->
+	<groupId>com.avail.automation</groupId>
+	<artifactId>AVAILDesktopAutomation</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>AVAILDesktopAutomation</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+		<!-- TestNG suite run by "mvn test". One area only: mvn test -Dsuite=testng-channels.xml (or -Dtest=ChannelValidationTest) -->
+		<suite>testng.xml</suite>
+	</properties>
+
+	<dependencies>
+		<!-- TestNG 7.12 - same version as AVAIL Stream -->
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>7.12.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Extent HTML report - same version as AVAIL Stream -->
+		<dependency>
+			<groupId>com.aventstack</groupId>
+			<artifactId>extentreports</artifactId>
+			<version>5.1.2</version>
+		</dependency>
+
+		<!-- Playwright Java - NOT used to drive AVAIL Desktop (a WPF app; Playwright only automates browsers).
+		     Kept for HYBRID tests that also check AVAIL Stream in the browser (e.g. upload in Stream -> verify in Desktop). -->
+		<dependency>
+			<groupId>com.microsoft.playwright</groupId>
+			<artifactId>playwright</artifactId>
+			<version>1.63.0</version>
+		</dependency>
+
+		<!-- JSON between Java and the UI Automation driver script (DesktopDriver.ps1) -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.11.0</version>
+		</dependency>
+
+		<!-- Pure-Java MP4 encoder - records the AVAIL Desktop window (utils.ScreenRecorder), same as AVAIL Stream -->
+		<dependency>
+			<groupId>org.jcodec</groupId>
+			<artifactId>jcodec-javase</artifactId>
+			<version>0.2.5</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Structured logging: console + test-output/logs/automation.log (config: src/test/resources/logback-test.xml) -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>2.0.16</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.5.12</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<!-- Surefire 3.5.2 = last version that runs TestNG suite files (3.6.0, used in AVAIL Stream, ignores them).
+				     So testng.xml decides WHICH tests run, in which ORDER, and registers the listeners (RetryListener). -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.5.2</version>
+				<configuration>
+					<suiteXmlFiles>
+						<suiteXmlFile>${suite}</suiteXmlFile>
+					</suiteXmlFiles>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

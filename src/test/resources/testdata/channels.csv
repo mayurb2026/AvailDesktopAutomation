@@ -1,0 +1,4 @@
+# Channels opened by ChannelValidationTest.openChannel (TC_D012) - one row = one test run.
+# channelName EXACTLY as shown in AVAIL Desktop; expectAtLeastOneItem = true if the channel must list files.
+channelName,expectAtLeastOneItem
+23rd Nov Egnyte - 1,false

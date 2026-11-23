@@ -1,0 +1,8 @@
+target/
+test-output/
+src/test/resources/config.properties
+.classpath
+.project
+.settings/
+.idea/
+*.iml

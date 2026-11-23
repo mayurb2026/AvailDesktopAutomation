@@ -1,0 +1,57 @@
+# =====================================================================================
+#  AVAIL Desktop automation - settings
+#  Any value can be overridden for one run:  mvn test -Dvideo.mode=all -Ddesktop.channel="My Channel"
+#  Priority: -D command-line value  >  this file  >  default value in the code
+# =====================================================================================
+
+# ---- AVAIL Desktop application -------------------------------------------------------
+# Title of the main window EXACTLY as Windows shows it (used to attach to the running app)
+desktop.window.title=AVAIL Desktop
+# AutomationId of the MAIN window - so the splash screen (same title, shown while the app starts) is never used
+desktop.window.automationId=mMainWindow
+# Path to Avail.exe - only used when desktop.launchIfNotRunning=true
+desktop.app.path=D:\\AAll project data\\AVAIL\\AvailDevDesktopSetup\\AVAIL_Desktop_INTERNAL_BUILD 1\\AVAIL_Desktop_INTERNAL_BUILD\\Avail.exe
+# true = start Avail.exe when it is not running (you still have to be signed in); false = fail with a clear message
+desktop.launchIfNotRunning=false
+# How long to wait for the AVAIL Desktop window (seconds)
+desktop.attachTimeoutSeconds=60
+# true = maximize + bring AVAIL Desktop to the front before every test (needed for screenshots / video)
+desktop.bringToFront=true
+
+# ---- Sign-in (DesktopLoginTest TC_D004 - TC_D006, only run when AVAIL Desktop shows its sign-in screen) ----
+# The tests NEVER sign out. Empty password values = that sign-in test is SKIPPED.
+user.email=your.name@company.com
+# your CURRENT AVAIL password (this file is git-ignored)
+user.password=
+# any WRONG password for the negative test - NOT your real password
+user.invalidPassword=
+
+# ---- Test data -----------------------------------------------------------------------
+# Channel used by the thumbnail / properties / sync tests - EXACTLY as shown in AVAIL Desktop, and it must
+# contain FILES. Empty = those tests are SKIPPED with a message. (23-Nov-2026: AVAIL Desktop lists 120 channels;
+# "Automation Testing Channel" from the AVAIL Stream config does NOT exist there.)
+desktop.channel=
+# Search tests (disabled until the search box locator is confirmed): a file name that exists in AVAIL Desktop
+desktop.search.existingFile=
+# Sync test: file names that must appear in desktop.channel (comma separated). Empty = sync test is skipped.
+desktop.sync.expectedFiles=
+desktop.sync.timeoutSeconds=180
+
+# ---- Evidence: off | fail | all ------------------------------------------------------
+#   off  = never   fail = only for failed tests   all = for passed and failed tests
+screenshot.mode=fail
+video.mode=fail
+
+# ---- Waits ---------------------------------------------------------------------------
+#   timeout.multiplier -> multiplies EVERY wait (slow PC / VM? use 2). See utils/WaitUtil.java
+#   timeout.default.ms -> default wait for locator.waitFor() / click() when the page gives none
+timeout.multiplier=1
+timeout.default.ms=15000
+
+# ---- Retry ---------------------------------------------------------------------------
+# Re-run a FAILED test this many times (0 = never). See listeners/RetryListener.java
+retry.count=0
+
+# ---- Report --------------------------------------------------------------------------
+report.engineer=Mayur Bhoge
+report.environment=Dev

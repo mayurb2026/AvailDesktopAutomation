@@ -1,0 +1,21 @@
+<!-- Structured logging for the AVAIL Desktop automation (utils.Log -> SLF4J -> Logback).
+     Every line: time | level | thread | test | logger | message
+     Console + file test-output/logs/automation.log (overwritten every run). -->
+<configuration>
+	<property name="PATTERN" value="%d{HH:mm:ss.SSS} | %-5level | %-10.10thread | %-28.28X{test} | %-22.22logger{0} | %msg%n" />
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder><pattern>${PATTERN}</pattern></encoder>
+	</appender>
+
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>test-output/logs/automation.log</file>
+		<append>false</append>
+		<encoder><pattern>${PATTERN}</pattern></encoder>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE" />
+	</root>
+</configuration>

@@ -1,0 +1,58 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="AvailDesktopSuite">
+
+	<!-- AVAIL Desktop automation - ALL test areas, in APPLICATION FLOW order:
+	     Login (app running + signed in) -> Channels -> Search -> Thumbnails -> Properties -> Sync
+
+	     Run everything:      mvn test
+	     Run one class:       mvn test -Dtest=ChannelValidationTest
+	     Run one method:      mvn test -Dtest=ChannelValidationTest#channelsTabShown
+	     From Eclipse:        right-click this file -> Run As -> TestNG Suite
+
+	     BEFORE YOU RUN: AVAIL Desktop must be RUNNING and SIGNED IN, the screen UNLOCKED,
+	     and don't use the mouse/keyboard while tests run (the window is brought to the front and recorded). -->
+
+	<listeners>
+		<!-- re-runs a failed test retry.count times (config.properties, default 0 = no retry) -->
+		<listener class-name="listeners.RetryListener" />
+		<!-- one structured log line per test start / result -->
+		<listener class-name="listeners.TestLogListener" />
+	</listeners>
+
+	<test name="Login">
+		<classes>
+			<class name="tests.login.DesktopLoginTest" />
+		</classes>
+	</test>
+
+	<test name="Channels">
+		<classes>
+			<class name="tests.channels.ChannelValidationTest" />
+		</classes>
+	</test>
+
+	<test name="Search">
+		<classes>
+			<class name="tests.search.DesktopSearchTest" />
+		</classes>
+	</test>
+
+	<test name="Thumbnails">
+		<classes>
+			<class name="tests.thumbnails.ThumbnailValidationTest" />
+		</classes>
+	</test>
+
+	<test name="Properties">
+		<classes>
+			<class name="tests.properties.PropertiesValidationTest" />
+		</classes>
+	</test>
+
+	<test name="Sync">
+		<classes>
+			<class name="tests.sync.ChannelSyncTest" />
+		</classes>
+	</test>
+
+</suite>
